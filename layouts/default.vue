@@ -1,25 +1,7 @@
 <script setup lang="ts">
-import { onMounted, watch } from 'vue'
-import { useRoute } from 'vue-router'
 import SecretAdminTrigger from '~/components/SecretAdminTrigger.vue'
 import Navbar from '~/components/Navbar.vue'
 import GlobalFooter from '~/components/GlobalFooter.vue'
-import { initWordPopAnimations } from '~/composables/useWordPop'
-
-const route = useRoute()
-
-onMounted(() => {
-  initWordPopAnimations()
-  setTimeout(initWordPopAnimations, 100)
-  setTimeout(initWordPopAnimations, 450)
-})
-
-watch(
-  () => route.path,
-  () => {
-    setTimeout(initWordPopAnimations, 120)
-  }
-)
 </script>
 
 <template>
