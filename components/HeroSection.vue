@@ -1,46 +1,15 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { ArrowUpRight, Sparkles, Play, Pause, Volume2, VolumeX, Maximize2 } from 'lucide-vue-next'
+import { ArrowUpRight, Sparkles } from 'lucide-vue-next'
 import AnimatedCounter from '~/components/AnimatedCounter.vue'
 
 const videoRef = ref<HTMLVideoElement | null>(null)
-const isPaused = ref(false)
-const isMuted = ref(true)
-const isHoveringStage = ref(false)
-
-const togglePlay = () => {
-  if (!videoRef.value) return
-  if (videoRef.value.paused) {
-    videoRef.value.play()
-    isPaused.value = false
-  } else {
-    videoRef.value.pause()
-    isPaused.value = true
-  }
-}
-
-const toggleAudio = () => {
-  if (!videoRef.value) return
-  videoRef.value.muted = !videoRef.value.muted
-  isMuted.value = videoRef.value.muted
-}
-
-const toggleFullscreen = () => {
-  if (!videoRef.value) return
-  if (document.fullscreenElement) {
-    document.exitFullscreen()
-  } else {
-    videoRef.value.requestFullscreen?.()
-  }
-}
 
 onMounted(() => {
   if (videoRef.value) {
     videoRef.value.play().catch(() => {
-      // Browser autoplay policy requires muted
       if (videoRef.value) {
         videoRef.value.muted = true
-        isMuted.value = true
         videoRef.value.play()
       }
     })
@@ -49,151 +18,116 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="banner-hero-section">
-    <!-- Atmospheric Ambient Light Layer -->
+  <section class="hero-editorial-section">
+    <!-- Atmospheric Ambient Backlight -->
     <div class="hero-ambient-glow" aria-hidden="true" />
 
     <div class="container hero-container">
-      <!-- Animated Chapter Badge -->
-      <div class="hero-header-badge font-mono">
-        <span class="live-beacon" />
-        <span class="badge-tag">CHAPTER [00]</span>
-        <span class="badge-divider">//</span>
-        <span class="badge-title">AUTONOMOUS SOURCING INFRASTRUCTURE</span>
-      </div>
-
-      <!-- Animated High-Fashion Typographic Headline -->
-      <div class="hero-headline-block">
-        <h1 class="hero-masked-h1">
-          <span class="hero-line hero-line-top">THE NEW OPERATING SYSTEM</span>
-          <span class="hero-line hero-line-bottom">
-            <span class="hero-volt-capsule">FOR GLOBAL APPAREL PRODUCTION.</span>
-          </span>
-        </h1>
-        <p class="hero-sublead">
-          Direct cloud-integrated manufacturing connecting modern fashion houses directly to certified smart factories across Bangladesh, Portugal, and Japan. Real-time Clo3D digital prototyping, mill-direct transparency, and live FOB pricing in BDT.
-        </p>
-      </div>
-
-      <!-- Action Cluster -->
-      <div class="hero-cta-cluster">
-        <NuxtLink to="/showroom" class="hero-btn-primary">
-          <span>Explore Digital Showroom</span>
-          <ArrowUpRight :size="16" class="btn-icon" />
-        </NuxtLink>
-
-        <NuxtLink to="/estimator" class="hero-btn-secondary">
-          <span>Calculate Instant RFQ</span>
-          <Sparkles :size="15" class="btn-sparkle" />
-        </NuxtLink>
-      </div>
-
-      <!-- 4K Cinematic Video Simulation Stage -->
-      <div
-        class="hero-stage-card"
-        @mouseenter="isHoveringStage = true"
-        @mouseleave="isHoveringStage = false"
-      >
-        <div class="hero-video-wrapper">
-          <video
-            ref="videoRef"
-            autoplay
-            muted
-            loop
-            playsinline
-            class="hero-video-element"
-          >
-            <source src="/banner.mp4" type="video/mp4" />
-            <source src="/Product Pic/Banner/gemini_generated_video_c20cb600.mp4" type="video/mp4" />
-          </video>
-
-          <!-- Subtle Top & Bottom Cinematic Vignette (Preserves Light Vibe) -->
-          <div class="video-overlay-subtle" />
-
-          <!-- Top HUD: Live Telemetry & Quick Controls -->
-          <div class="video-hud-bar">
-            <div class="hud-pill font-mono">
-              <span class="live-dot" />
-              <span>CLO3D SIMULATION ENGINE • 60 FPS • LIVE FABRIC PHYSICS</span>
-            </div>
-
-            <!-- Video Player Controls -->
-            <div class="hud-controls-cluster font-mono">
-              <button
-                class="hud-control-btn"
-                :title="isPaused ? 'Resume Video' : 'Pause Video'"
-                @click="togglePlay"
-              >
-                <Play v-if="isPaused" :size="13" />
-                <Pause v-else :size="13" />
-                <span class="btn-label">{{ isPaused ? 'PLAY' : 'PAUSE' }}</span>
-              </button>
-
-              <button
-                class="hud-control-btn"
-                :class="{ 'is-active-sound': !isMuted }"
-                :title="isMuted ? 'Unmute Audio' : 'Mute Audio'"
-                @click="toggleAudio"
-              >
-                <Volume2 v-if="!isMuted" :size="13" />
-                <VolumeX v-else :size="13" />
-                <span class="btn-label">{{ isMuted ? 'MUTED' : 'AUDIO ON' }}</span>
-              </button>
-
-              <button
-                class="hud-control-btn"
-                title="Fullscreen Preview"
-                @click="toggleFullscreen"
-              >
-                <Maximize2 :size="13" />
-              </button>
-            </div>
+      <div class="hero-split-grid">
+        <!-- Left Column: High-Fashion Narrative & Actions -->
+        <div class="hero-narrative-col">
+          <!-- Chapter Eyebrow -->
+          <div class="hero-eyebrow font-mono">
+            <span class="live-status-dot" />
+            <span class="eyebrow-tag">CHAPTER [00]</span>
+            <span class="eyebrow-sep">//</span>
+            <span class="eyebrow-title">AUTONOMOUS SOURCING INFRASTRUCTURE</span>
           </div>
 
-          <!-- Bottom HUD: Active Location & Capability Badge -->
-          <div class="video-bottom-hud font-mono">
-            <div class="location-badge">
-              <span class="loc-indicator" />
-              <span>DHAKA HUB // TOKYO // PORTO PROTOCOL</span>
+          <!-- Editorial Headline (Pure Luxury Typography - No Highlighter) -->
+          <div class="hero-title-wrap">
+            <h1 class="hero-editorial-h1">
+              <span class="h1-lead">The Modern Operating System</span>
+              <span class="h1-sub">for Global Apparel Production.</span>
+            </h1>
+          </div>
+
+          <!-- Refined Sublead -->
+          <p class="hero-sublead-text">
+            Connecting visionary global fashion brands directly to certified smart garment factories across Bangladesh, Portugal, and Japan. High-fidelity Clo3D digital twins, mill-direct transparency, and live factory FOB benchmarks in BDT.
+          </p>
+
+          <!-- Action Buttons Cluster -->
+          <div class="hero-actions-cluster">
+            <NuxtLink to="/showroom" class="hero-cta-primary">
+              <span>Explore Digital Showroom</span>
+              <ArrowUpRight :size="16" class="cta-arrow" />
+            </NuxtLink>
+
+            <NuxtLink to="/estimator" class="hero-cta-secondary">
+              <Sparkles :size="15" class="cta-sparkle" />
+              <span>Calculate Instant RFQ</span>
+            </NuxtLink>
+          </div>
+
+          <!-- Integrated Telemetry Grid -->
+          <div class="hero-telemetry-dock">
+            <div class="telemetry-cell">
+              <div class="telemetry-num font-display">
+                <AnimatedCounter :target="14" suffix="+" />
+              </div>
+              <div class="telemetry-meta font-mono">VERIFIED ARCHIVES</div>
             </div>
-            <div class="resolution-badge">
-              <span>ULTRA-HD 4K // COLOR ACCURATE</span>
+
+            <div class="telemetry-cell">
+              <div class="telemetry-num font-display">
+                <AnimatedCounter :target="48" suffix="H" />
+              </div>
+              <div class="telemetry-meta font-mono">CLO3D TURNAROUND</div>
+            </div>
+
+            <div class="telemetry-cell">
+              <div class="telemetry-num font-display">
+                <AnimatedCounter :target="99.4" suffix="%" :decimals="1" />
+              </div>
+              <div class="telemetry-meta font-mono">AQL 2.5 PASS RATE</div>
+            </div>
+
+            <div class="telemetry-cell">
+              <div class="telemetry-num font-display">
+                ৳<AnimatedCounter :target="3350" suffix="+" />
+              </div>
+              <div class="telemetry-meta font-mono">BDT VOLUME FOB</div>
             </div>
           </div>
         </div>
 
-        <!-- Telemetry Metrics Grid (Luminous Light Theme) -->
-        <div class="hero-telemetry-grid">
-          <div class="telemetry-box">
-            <span class="telemetry-label font-mono">DIGITAL ARCHIVES</span>
-            <span class="telemetry-val">
-              <AnimatedCounter :target="14" suffix="+" />
-            </span>
-            <span class="telemetry-caption">Verified Garment Styles</span>
-          </div>
+        <!-- Right Column: Pure 4K Clo3D Video Showcase Stage (No Media Controls) -->
+        <div class="hero-visual-col">
+          <div class="hero-stage-card">
+            <div class="video-container">
+              <video
+                ref="videoRef"
+                autoplay
+                muted
+                loop
+                playsinline
+                class="ambient-banner-video"
+              >
+                <source src="/banner.mp4" type="video/mp4" />
+                <source src="/Product Pic/Banner/gemini_generated_video_c20cb600.mp4" type="video/mp4" />
+              </video>
 
-          <div class="telemetry-box">
-            <span class="telemetry-label font-mono">SAMPLE VELOCITY</span>
-            <span class="telemetry-val">
-              <AnimatedCounter :target="48" suffix="H" />
-            </span>
-            <span class="telemetry-caption">Clo3D Digital Turnaround</span>
-          </div>
+              <!-- Subtle Ambient Edge Gradients -->
+              <div class="stage-overlay" />
 
-          <div class="telemetry-box">
-            <span class="telemetry-label font-mono">QUALITY RATING</span>
-            <span class="telemetry-val">
-              <AnimatedCounter :target="99.4" suffix="%" :decimals="1" />
-            </span>
-            <span class="telemetry-caption">AQL 2.5 Strict Pass Rate</span>
-          </div>
+              <!-- Technical HUD Tags (Passive only, NO interactive buttons) -->
+              <div class="stage-top-hud font-mono">
+                <div class="hud-capsule">
+                  <span class="hud-green-dot" />
+                  <span>CLO3D SIMULATION ENGINE • 60 FPS</span>
+                </div>
+              </div>
 
-          <div class="telemetry-box">
-            <span class="telemetry-label font-mono">BDT VOLUME PRICING</span>
-            <span class="telemetry-val">
-              ৳<AnimatedCounter :target="3350" suffix="+" />
-            </span>
-            <span class="telemetry-caption">Direct Factory FOB Benchmarks</span>
+              <div class="stage-bottom-hud font-mono">
+                <div class="hud-location">
+                  <span>DHAKA // TOKYO // PORTO PROTOCOL</span>
+                </div>
+                <div class="hud-quality">
+                  <span>4K DIGITAL TWIN</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -202,9 +136,9 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.banner-hero-section {
+.hero-editorial-section {
   position: relative;
-  padding: 8.5rem 0 5.5rem;
+  padding: 6.25rem 0 2.5rem;
   background: #ffffff;
   overflow: hidden;
 }
@@ -212,13 +146,11 @@ onMounted(() => {
 /* Atmospheric Ambient Light Reflection */
 .hero-ambient-glow {
   position: absolute;
-  top: 5%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  max-width: 1200px;
-  height: 500px;
-  background: radial-gradient(circle at 50% 30%, rgba(212, 255, 0, 0.08) 0%, rgba(200, 163, 50, 0.04) 40%, transparent 75%);
+  top: 10%;
+  right: 5%;
+  width: 650px;
+  height: 650px;
+  background: radial-gradient(circle at 50% 50%, rgba(212, 255, 0, 0.09) 0%, rgba(200, 163, 50, 0.04) 40%, transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
@@ -226,438 +158,375 @@ onMounted(() => {
 .hero-container {
   position: relative;
   z-index: 1;
+}
+
+/* 2-Column Split Grid for Above-the-Fold Luxury */
+.hero-split-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 3.25rem;
+  align-items: center;
+}
+
+/* Left Narrative Column */
+.hero-narrative-col {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  text-align: left;
 }
 
-/* Floating Chapter Badge */
-.hero-header-badge {
+/* Eyebrow Badge */
+.hero-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  background: #f7f7f5;
+  gap: 0.55rem;
+  background: #f8fafc;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  padding: 0.4rem 1rem;
+  padding: 0.3rem 0.8rem;
   border-radius: 9999px;
-  font-size: 0.76rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  color: #334155;
-  margin-bottom: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-  transition: all 0.3s ease;
-  animation: floatSlow 4s ease-in-out infinite;
+  color: #475569;
+  margin-bottom: 1.15rem;
+  width: fit-content;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
-.hero-header-badge:hover {
-  background: #ffffff;
-  border-color: rgba(0, 0, 0, 0.16);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-}
-
-.live-beacon {
+.live-status-dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background: #10b981;
-  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
-  animation: badgeLivePulse 2s infinite;
+  box-shadow: 0 0 8px #10b981;
+  animation: beaconPulse 2s infinite;
 }
 
-.badge-tag {
-  color: #0a0b0d;
+@keyframes beaconPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
 }
 
-.badge-divider {
+.eyebrow-tag {
+  color: #0f172a;
+}
+
+.eyebrow-sep {
   color: #cbd5e1;
 }
 
-.badge-title {
+.eyebrow-title {
   color: #64748b;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
 }
 
-/* Typographic Headline */
-.hero-headline-block {
-  max-width: 1040px;
-  margin-bottom: 2.25rem;
+/* Editorial Headline */
+.hero-title-wrap {
+  margin-bottom: 1rem;
 }
 
-.hero-masked-h1 {
+.hero-editorial-h1 {
   font-family: var(--font-display, sans-serif);
-  font-size: clamp(2.4rem, 5.2vw, 4.5rem);
-  font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -0.04em;
-  color: #0a0b0d;
-  margin: 0 0 1.35rem 0;
+  font-size: clamp(2.2rem, 3.4vw, 3.35rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  color: #0f172a;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
-  text-transform: uppercase;
 }
 
-.hero-line {
-  display: inline-block;
-  transition: transform 0.4s ease;
+.h1-lead {
+  display: block;
+  color: #0f172a;
 }
 
-.hero-volt-capsule {
-  position: relative;
-  display: inline-block;
-  color: #0a0b0d;
-  z-index: 1;
-  padding: 0 0.08em;
-  white-space: nowrap;
+.h1-sub {
+  display: block;
+  color: #475569;
+  font-weight: 600;
 }
 
-.hero-volt-capsule::before {
-  content: '';
-  position: absolute;
-  left: 0.04em;
-  right: 0.04em;
-  bottom: 0.12em;
-  height: 0.32em;
-  background: var(--accent-volt, #d4ff00);
-  z-index: -1;
-  border-radius: 2px;
-  box-shadow: 0 0 16px rgba(212, 255, 0, 0.38);
+/* Subtext */
+.hero-sublead-text {
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: #475569;
+  max-width: 560px;
+  margin: 0 0 1.65rem 0;
 }
 
-.hero-sublead {
-  font-size: clamp(1.02rem, 1.3vw, 1.2rem);
-  line-height: 1.65;
-  color: #4b5563;
-  max-width: 820px;
-  margin: 0 auto;
-}
-
-/* CTA Buttons */
-.hero-cta-cluster {
+/* Action Buttons Cluster */
+.hero-actions-cluster {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1.1rem;
-  margin-bottom: 4rem;
+  gap: 1rem;
+  margin-bottom: 2rem;
   flex-wrap: wrap;
 }
 
-.hero-btn-primary {
+.hero-cta-primary {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.95rem 1.85rem;
-  background: #0a0b0d;
+  padding: 0.9rem 1.75rem;
+  background: #0f172a;
   color: #ffffff;
   border-radius: 9999px;
   font-family: var(--font-body, sans-serif);
   font-weight: 700;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   text-decoration: none;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.16);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.hero-btn-primary:hover {
-  background: #181a20;
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.24);
+.hero-cta-primary:hover {
+  background: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.24);
 }
 
-.hero-btn-primary .btn-icon {
-  transition: transform 0.3s ease;
+.cta-arrow {
+  transition: transform 0.25s ease;
 }
 
-.hero-btn-primary:hover .btn-icon {
+.hero-cta-primary:hover .cta-arrow {
   transform: translate(2px, -2px);
 }
 
-.hero-btn-secondary {
+.hero-cta-secondary {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.95rem 1.85rem;
+  gap: 0.55rem;
+  padding: 0.9rem 1.75rem;
   background: #ffffff;
-  color: #0a0b0d;
+  color: #0f172a;
   border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 9999px;
   font-family: var(--font-body, sans-serif);
   font-weight: 700;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   text-decoration: none;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.hero-btn-secondary:hover {
-  background: #fbfbfa;
-  border-color: rgba(0, 0, 0, 0.22);
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+.hero-cta-secondary:hover {
+  background: #f8fafc;
+  border-color: rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
 }
 
-.btn-sparkle {
-  color: #d4a310;
-  animation: pulseGlow 2s infinite ease-in-out;
+.cta-sparkle {
+  color: #d97706;
 }
 
-/* 4K Stage Card (Ultra Modern Light Architectural Aesthetic) */
-.hero-stage-card {
+/* Telemetry Dock below CTAs */
+.hero-telemetry-dock {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.telemetry-cell {
+  display: flex;
+  flex-direction: column;
+}
+
+.telemetry-num {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.1;
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.02em;
+}
+
+.telemetry-meta {
+  font-size: 0.64rem;
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 0.06em;
+}
+
+/* Right Visual Column */
+.hero-visual-col {
+  display: flex;
+  justify-content: center;
   width: 100%;
-  max-width: 1260px;
-  background: #ffffff;
-  border-radius: 2rem;
+}
+
+.hero-stage-card {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  border-radius: 1.75rem;
   overflow: hidden;
-  box-shadow: 0 24px 64px -12px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.08);
-  transition: box-shadow 0.4s ease, transform 0.4s ease;
+  background: #ffffff;
+  box-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .hero-stage-card:hover {
-  box-shadow: 0 32px 80px -10px rgba(0, 0, 0, 0.14), 0 0 0 1px rgba(0, 0, 0, 0.12);
-  transform: translateY(-3px);
+  transform: translateY(-4px);
+  box-shadow: 0 32px 75px -15px rgba(0, 0, 0, 0.14), 0 0 0 1px rgba(0, 0, 0, 0.12);
 }
 
-/* Cinematic Video Container */
-.hero-video-wrapper {
+.video-container {
   position: relative;
   width: 100%;
-  height: 560px;
+  aspect-ratio: 4 / 4.6;
+  background: #f1f5f9;
   overflow: hidden;
-  background: #f1f2f5;
 }
 
-.hero-video-element {
+.ambient-banner-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: contrast(104%) brightness(98%);
+  filter: contrast(103%) brightness(99%);
   display: block;
 }
 
-/* Subtle Film Vignette (Keeps Video Brilliant and Clean) */
-.video-overlay-subtle {
+/* Subtle Film Edge Vignette */
+.stage-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.32) 0%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0.4) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0.35) 100%);
   pointer-events: none;
 }
 
-/* Video HUD Top Bar */
-.video-hud-bar {
+/* Top Technical Badge */
+.stage-top-hud {
   position: absolute;
-  top: 1.5rem;
-  left: 1.5rem;
-  right: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  top: 1.25rem;
+  left: 1.25rem;
   z-index: 2;
-  flex-wrap: wrap;
 }
 
-.hud-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 0.45rem 0.95rem;
-  border-radius: 9999px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: #0f172a;
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-}
-
-.live-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 10px #10b981;
-  animation: badgeLivePulse 1.8s infinite;
-}
-
-/* Player Controls Cluster */
-.hud-controls-cluster {
+.hud-capsule {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-}
-
-.hud-control-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  color: #0f172a;
-  padding: 0.45rem 0.85rem;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 0.4rem 0.85rem;
   border-radius: 9999px;
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-  transition: all 0.25s ease;
+  color: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
 
-.hud-control-btn:hover {
-  background: #ffffff;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-  border-color: rgba(0, 0, 0, 0.2);
+.hud-green-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
 }
 
-.hud-control-btn.is-active-sound {
-  background: #d4ff00;
-  color: #0a0b0d;
-  border-color: #d4ff00;
-  box-shadow: 0 4px 14px rgba(212, 255, 0, 0.35);
-}
-
-.btn-label {
-  letter-spacing: 0.04em;
-}
-
-/* Bottom HUD Badges */
-.video-bottom-hud {
+/* Bottom Passive Badges */
+.stage-bottom-hud {
   position: absolute;
-  bottom: 1.5rem;
-  left: 1.5rem;
-  right: 1.5rem;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  right: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.75rem;
   z-index: 2;
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 700;
   color: #ffffff;
 }
 
-.location-badge, .resolution-badge {
+.hud-location,
+.hud-quality {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  background: rgba(10, 11, 13, 0.65);
+  background: rgba(15, 23, 42, 0.7);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  padding: 0.35rem 0.8rem;
+  padding: 0.35rem 0.75rem;
   border-radius: 9999px;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
 }
 
-.loc-indicator {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #38bdf8;
-  box-shadow: 0 0 6px #38bdf8;
-}
-
-/* Telemetry Dashboard (Crisp Light Theme) */
-.hero-telemetry-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  background: #fafaf8;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-.telemetry-box {
-  padding: 2.2rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  border-right: 1px solid rgba(0, 0, 0, 0.08);
-  background: #ffffff;
-  transition: all 0.3s ease;
-}
-
-.telemetry-box:hover {
-  background: #f8fafc;
-  transform: translateY(-2px);
-}
-
-.telemetry-box:last-child {
-  border-right: none;
-}
-
-.telemetry-label {
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  color: #64748b;
-  margin-bottom: 0.5rem;
-  font-weight: 700;
-}
-
-.telemetry-val {
-  font-family: var(--font-display, sans-serif);
-  font-size: 2.35rem;
-  font-weight: 800;
-  color: #0a0b0d;
-  line-height: 1.1;
-  margin-bottom: 0.35rem;
-  letter-spacing: -0.03em;
-}
-
-.telemetry-caption {
-  font-size: 0.8rem;
-  color: #64748b;
-  font-weight: 500;
-}
-
-/* Responsive Rules */
+/* Responsive Breakpoints */
 @media (max-width: 1024px) {
-  .hero-video-wrapper {
-    height: 420px;
+  .hero-editorial-section {
+    padding: 6.5rem 0 3.5rem;
   }
-  .hero-telemetry-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .hero-split-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
   }
-  .telemetry-box:nth-child(2) {
-    border-right: none;
+  .hero-narrative-col {
+    align-items: center;
+    text-align: center;
   }
-  .telemetry-box:nth-child(-n+2) {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  .hero-sublead-text {
+    max-width: 650px;
+  }
+  .hero-actions-cluster {
+    justify-content: center;
+  }
+  .hero-telemetry-dock {
+    width: 100%;
+    max-width: 540px;
+  }
+  .hero-stage-card {
+    max-width: 500px;
+  }
+  .video-container {
+    aspect-ratio: 16 / 11;
   }
 }
 
 @media (max-width: 640px) {
-  .banner-hero-section {
-    padding: 7rem 0 3.5rem;
+  .hero-editorial-section {
+    padding: 5.5rem 0 2.5rem;
   }
-  .hero-volt-capsule {
-    white-space: normal;
+  .hero-editorial-h1 {
+    font-size: 2.1rem;
   }
-  .hero-video-wrapper {
-    height: 300px;
+  .hero-actions-cluster {
+    flex-direction: column;
+    width: 100%;
   }
-  .video-bottom-hud {
+  .hero-cta-primary,
+  .hero-cta-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+  .hero-telemetry-dock {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+  .video-container {
+    aspect-ratio: 16 / 12;
+  }
+  .hud-location {
+    font-size: 0.6rem;
+  }
+  .hud-quality {
     display: none;
-  }
-  .hero-telemetry-grid {
-    grid-template-columns: 1fr;
-  }
-  .telemetry-box {
-    border-right: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    padding: 1.6rem 1rem;
-  }
-  .telemetry-box:last-child {
-    border-bottom: none;
-  }
-  .hud-pill {
-    font-size: 0.65rem;
-    padding: 0.35rem 0.65rem;
   }
 }
 </style>
