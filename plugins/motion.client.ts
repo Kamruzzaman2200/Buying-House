@@ -10,21 +10,16 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.provide('gsap', gsap)
   nuxtApp.provide('ScrollTrigger', ScrollTrigger)
 
-  // Listen for preloader completion or immediate start
-  window.addEventListener('nexus:loaded', () => {
-    initScrollAnimations()
-  })
-
-  // Hook into Nuxt page finish lifecycle for transitions
+  // Initialize animations directly on Nuxt page transitions
   nuxtApp.hook('page:finish', () => {
-    setTimeout(initScrollAnimations, 100)
+    setTimeout(initScrollAnimations, 60)
   })
 
-  // Immediate initialization fallback
+  // Immediate initialization on page load
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    setTimeout(initScrollAnimations, 150)
+    setTimeout(initScrollAnimations, 60)
   } else {
-    window.addEventListener('DOMContentLoaded', () => setTimeout(initScrollAnimations, 150))
+    window.addEventListener('DOMContentLoaded', () => setTimeout(initScrollAnimations, 60))
   }
 })
 

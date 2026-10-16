@@ -52,7 +52,7 @@ onMounted(() => {
   if ('IntersectionObserver' in window && counterEl.value) {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
+        if (entries[0]?.isIntersecting) {
           startCount()
           observer.disconnect()
         }
