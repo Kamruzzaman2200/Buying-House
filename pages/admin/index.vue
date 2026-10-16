@@ -13,7 +13,13 @@ import {
   AlertCircle,
   RefreshCw,
   LogOut,
+  Edit3,
+  Check,
+  X,
+  Tag,
+  FolderPlus,
 } from 'lucide-vue-next'
+import AnimatedCounter from '~/components/AnimatedCounter.vue'
 
 definePageMeta({
   layout: 'admin',
@@ -31,6 +37,19 @@ const isLoading = ref(true)
 const dbStatus = ref<any>(null)
 const products = ref<any[]>([])
 const inquiries = ref<any[]>([])
+
+// Category Management
+const categories = ref<any[]>([])
+const newCategoryName = ref('')
+const newCategoryDesc = ref('')
+const isAddingCategory = ref(false)
+const isSubmittingCategory = ref(false)
+const deletingCategoryId = ref<number | null>(null)
+
+// Price Inline Edit State
+const editingPriceId = ref<string | null>(null)
+const editingPriceValue = ref('')
+const isSavingPrice = ref(false)
 
 // New Product Form
 const isAddingProduct = ref(false)
@@ -58,15 +77,22 @@ const statusMessage = ref('')
 const loadData = async () => {
   isLoading.value = true
   try {
-    const [healthRes, prodsRes, inqRes]: any = await Promise.all([
+    const [healthRes, prodsRes, inqRes, catsRes]: any = await Promise.all([
       $fetch('/api/health').catch(() => null),
       $fetch('/api/products').catch(() => ({ data: [] })),
       $fetch('/api/inquiries').catch(() => ({ data: [] })),
+      $fetch('/api/categories').catch(() => ({ categories: [] })),
     ])
 
     if (healthRes) dbStatus.value = healthRes
     if (prodsRes) products.value = prodsRes.data || prodsRes.products || []
     if (inqRes) inquiries.value = inqRes.data || []
+    if (catsRes && catsRes.categories) {
+      categories.value = catsRes.categories
+      if (categories.value.length > 0 && !newProd.value.category) {
+        newProd.value.category = categories.value[0].name
+      }
+    }
   } catch (err) {
     console.error('Error fetching admin data:', err)
   } finally {
@@ -93,6 +119,98 @@ const handleLogout = async () => {
   await navigateTo('/admin/login')
 }
 
+// Category Actions
+const handleCreateCategory = async () => {
+  if (!newCategoryName.value.trim()) {
+    alert('Please enter a category name.')
+    return
+  }
+
+  isSubmittingCategory.value = true
+  try {
+    const res: any = await $fetch('/api/categories', {
+      method: 'POST',
+      body: {
+        name: newCategoryName.value.trim(),
+        description: newCategoryDesc.value.trim() || undefined,
+      },
+    })
+
+    if (res.success) {
+      statusMessage.value = res.message || `Category "${newCategoryName.value.trim()}" added to Neon DB!`
+      newCategoryName.value = ''
+      newCategoryDesc.value = ''
+      isAddingCategory.value = false
+      const catsRes: any = await $fetch('/api/categories').catch(() => null)
+      if (catsRes && catsRes.categories) {
+        categories.value = catsRes.categories
+      }
+      setTimeout(() => (statusMessage.value = ''), 4000)
+    }
+  } catch (err: any) {
+    alert('Failed to add category: ' + err.message)
+  } finally {
+    isSubmittingCategory.value = false
+  }
+}
+
+const handleDeleteCategory = async (id: number, name: string) => {
+  if (!confirm(`Are you sure you want to delete category "${name}" from Neon DB?`)) return
+
+  deletingCategoryId.value = id
+  try {
+    const res: any = await $fetch(`/api/categories/${id}`, { method: 'DELETE' })
+    if (res.success) {
+      categories.value = categories.value.filter((c) => c.id !== id)
+      statusMessage.value = `Category "${name}" removed from Neon DB.`
+      setTimeout(() => (statusMessage.value = ''), 4000)
+    }
+  } catch (err: any) {
+    alert('Failed to delete category: ' + err.message)
+  } finally {
+    deletingCategoryId.value = null
+  }
+}
+
+// Price Editing Actions
+const startEditPrice = (prod: any) => {
+  editingPriceId.value = prod.id
+  editingPriceValue.value = prod.fob_price || '৳3,500'
+}
+
+const cancelEditPrice = () => {
+  editingPriceId.value = null
+  editingPriceValue.value = ''
+}
+
+const handleSavePrice = async (prod: any) => {
+  if (!editingPriceValue.value.trim()) {
+    alert('Please enter a valid FOB price benchmark.')
+    return
+  }
+
+  isSavingPrice.value = true
+  try {
+    const res: any = await $fetch(`/api/products/${prod.id}`, {
+      method: 'PATCH',
+      body: {
+        fob_price: editingPriceValue.value.trim(),
+      },
+    })
+
+    if (res.success) {
+      prod.fob_price = editingPriceValue.value.trim()
+      statusMessage.value = `FOB Price for "${prod.title}" updated to "${editingPriceValue.value.trim()}" in Neon DB!`
+      cancelEditPrice()
+      setTimeout(() => (statusMessage.value = ''), 4000)
+    }
+  } catch (err: any) {
+    alert('Failed to update product price: ' + err.message)
+  } finally {
+    isSavingPrice.value = false
+  }
+}
+
 const handleCreateProduct = async () => {
   if (!newProd.value.title || !newProd.value.image_url) {
     alert('Please provide at least a title and image URL.')
@@ -111,7 +229,7 @@ const handleCreateProduct = async () => {
       isAddingProduct.value = false
       newProd.value = {
         title: '',
-        category: 'Outerwear',
+        category: categories.value[0]?.name || 'Outerwear',
         vibe: 'Contemporary',
         season: 'Current Drop',
         description: '',
@@ -208,7 +326,9 @@ const handleDeleteInquiry = async (id: number, name: string) => {
           <span class="stat-label">ACTIVE GARMENTS</span>
           <Layers :size="16" class="stat-icon" />
         </div>
-        <div class="stat-val font-mono">{{ products.length }}</div>
+        <div class="stat-val font-mono">
+          <AnimatedCounter :target="products.length" :duration="1400" :delay="150" />
+        </div>
         <div class="stat-desc font-mono">Catalog items in Neon DB</div>
       </div>
 
@@ -217,7 +337,9 @@ const handleDeleteInquiry = async (id: number, name: string) => {
           <span class="stat-label">B2B INQUIRIES</span>
           <Inbox :size="16" class="stat-icon" />
         </div>
-        <div class="stat-val font-mono">{{ inquiries.length }}</div>
+        <div class="stat-val font-mono">
+          <AnimatedCounter :target="inquiries.length" :duration="1400" :delay="250" />
+        </div>
         <div class="stat-desc font-mono">Client RFQ leads logged</div>
       </div>
 
@@ -334,13 +456,63 @@ const handleDeleteInquiry = async (id: number, name: string) => {
       <div class="pane-header-row">
         <div>
           <h2 class="pane-title">Garment Catalog & Clo3D Tech Packs</h2>
-          <p class="pane-subtitle">Manage styles and BDT FOB price benchmarks displayed in the public digital showroom.</p>
+          <p class="pane-subtitle">Manage styles, categories, and BDT FOB price benchmarks displayed in the public digital showroom.</p>
         </div>
 
-        <button class="add-prod-btn font-mono" @click="isAddingProduct = !isAddingProduct">
-          <Plus :size="15" />
-          <span>{{ isAddingProduct ? 'Cancel Form' : 'Upload New Garment' }}</span>
-        </button>
+        <div class="catalog-top-actions">
+          <button class="category-toggle-btn font-mono" @click="isAddingCategory = !isAddingCategory">
+            <Tag :size="14" />
+            <span>{{ isAddingCategory ? 'Close Categories' : 'Manage Categories' }}</span>
+          </button>
+
+          <button class="add-prod-btn font-mono" @click="isAddingProduct = !isAddingProduct">
+            <Plus :size="15" />
+            <span>{{ isAddingProduct ? 'Cancel Form' : 'Upload New Garment' }}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Category Management Card -->
+      <div v-if="isAddingCategory" class="admin-category-card">
+        <div class="category-card-header font-mono">
+          <div class="cat-header-title">
+            <FolderPlus :size="16" />
+            <span>Garment Categories in Neon DB ({{ categories.length }})</span>
+          </div>
+          <span class="cat-header-hint">Categories dynamically update showroom filters across the website</span>
+        </div>
+
+        <!-- Add Category Inline Form -->
+        <form @submit.prevent="handleCreateCategory" class="cat-inline-form font-mono">
+          <input
+            v-model="newCategoryName"
+            type="text"
+            required
+            placeholder="New Category Name (e.g. Heavy Knitwear, Activewear)"
+            class="admin-input cat-name-input font-mono"
+          />
+          <button type="submit" class="cat-submit-btn font-mono" :disabled="isSubmittingCategory">
+            <Plus :size="14" />
+            <span>{{ isSubmittingCategory ? 'Saving...' : 'Add Category to DB' }}</span>
+          </button>
+        </form>
+
+        <!-- Current Categories List -->
+        <div class="admin-categories-tags-wrap font-mono">
+          <div v-for="cat in categories" :key="cat.id" class="admin-cat-tag">
+            <Tag :size="11" />
+            <span class="cat-tag-text">{{ cat.name }}</span>
+            <button
+              v-if="cat.id > 5"
+              class="cat-del-btn"
+              title="Delete Category"
+              :disabled="deletingCategoryId === cat.id"
+              @click="handleDeleteCategory(cat.id, cat.name)"
+            >
+              <X :size="11" />
+            </button>
+          </div>
+        </div>
       </div>
 
       <!-- Add Product Form Card -->
@@ -356,11 +528,9 @@ const handleDeleteInquiry = async (id: number, name: string) => {
             <div class="field-wrap">
               <label class="field-label font-mono">CATEGORY *</label>
               <select v-model="newProd.category" class="admin-input font-mono">
-                <option value="Outerwear">Outerwear</option>
-                <option value="Tailored Shirts">Tailored Shirts</option>
-                <option value="Linen & Resort">Linen & Resort</option>
-                <option value="Denim">Denim</option>
-                <option value="Contemporary Overshirts">Contemporary Overshirts</option>
+                <option v-for="cat in categories" :key="cat.id" :value="cat.name">
+                  {{ cat.name }}
+                </option>
               </select>
             </div>
 
@@ -420,7 +590,50 @@ const handleDeleteInquiry = async (id: number, name: string) => {
               </td>
               <td class="fabric-cell">{{ prod.fabric_details || '100% Cotton' }}</td>
               <td>{{ prod.moq || 100 }} pcs</td>
-              <td class="price-cell">{{ prod.fob_price || '৳3,500' }}</td>
+              <td class="price-cell">
+                <!-- Inline Price Editor -->
+                <div v-if="editingPriceId === prod.id" class="inline-price-editor">
+                  <input
+                    v-model="editingPriceValue"
+                    type="text"
+                    class="inline-price-input font-mono"
+                    placeholder="e.g. ৳3,800 - ৳5,200"
+                    @keyup.enter="handleSavePrice(prod)"
+                    @keyup.esc="cancelEditPrice"
+                  />
+                  <div class="inline-price-btns">
+                    <button
+                      class="price-save-action-btn font-mono"
+                      title="Save FOB Price in Neon DB"
+                      :disabled="isSavingPrice"
+                      @click="handleSavePrice(prod)"
+                    >
+                      <Check :size="13" />
+                      <span>Save</span>
+                    </button>
+                    <button
+                      class="price-cancel-action-btn font-mono"
+                      title="Cancel"
+                      @click="cancelEditPrice"
+                    >
+                      <X :size="13" />
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Normal Price Display with Edit Button -->
+                <div v-else class="price-display-wrapper">
+                  <span class="price-num">{{ prod.fob_price || '৳3,500' }}</span>
+                  <button
+                    class="edit-price-pill-btn font-mono"
+                    title="Click to edit FOB price"
+                    @click="startEditPrice(prod)"
+                  >
+                    <Edit3 :size="11" />
+                    <span>Update</span>
+                  </button>
+                </div>
+              </td>
               <td class="text-right">
                 <button
                   class="action-delete-btn"
@@ -921,10 +1134,246 @@ const handleDeleteInquiry = async (id: number, name: string) => {
   color: #475569;
 }
 
+.catalog-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.category-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.65rem 1.15rem;
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.76rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.category-toggle-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.admin-category-card {
+  background: #ffffff;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.06);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.category-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.cat-header-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 800;
+  color: #0f172a;
+  font-size: 0.85rem;
+}
+
+.cat-header-hint {
+  font-size: 0.72rem;
+  color: #64748b;
+}
+
+.cat-inline-form {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.cat-name-input {
+  flex: 1;
+  min-width: 260px;
+}
+
+.cat-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.65rem 1.25rem;
+  background: #059669;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 0.76rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cat-submit-btn:hover:not(:disabled) {
+  background: #047857;
+  transform: translateY(-1px);
+}
+
+.cat-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.admin-categories-tags-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.admin-cat-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  background: #f8fafc;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #1e293b;
+  transition: all 0.15s ease;
+}
+
+.admin-cat-tag:hover {
+  border-color: #cbd5e1;
+  background: #f1f5f9;
+}
+
+.cat-del-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  color: #94a3b8;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.15s ease;
+}
+
+.cat-del-btn:hover {
+  color: #dc2626;
+  background: #fee2e2;
+}
+
 .price-cell {
   font-weight: 800;
   color: #0f172a;
   white-space: nowrap;
+}
+
+.price-display-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.price-num {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.edit-price-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.55rem;
+  background: #f1f5f9;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 9999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.edit-price-pill-btn:hover {
+  background: #e0f2fe;
+  color: #0284c7;
+  border-color: #7dd3fc;
+  transform: translateY(-1px);
+}
+
+.inline-price-editor {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.inline-price-input {
+  width: 130px;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  border: 1.5px solid #0284c7;
+  border-radius: 6px;
+  outline: none;
+  background: #ffffff;
+  color: #0f172a;
+}
+
+.inline-price-btns {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.price-save-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.35rem 0.6rem;
+  background: #10b981;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.price-save-action-btn:hover:not(:disabled) {
+  background: #059669;
+}
+
+.price-cancel-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.45rem;
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.price-cancel-action-btn:hover {
+  background: #fee2e2;
+  color: #dc2626;
 }
 
 .text-right {
@@ -1005,6 +1454,57 @@ const handleDeleteInquiry = async (id: number, name: string) => {
   }
   .form-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-dashboard-container {
+    padding: 1.5rem 0.85rem;
+  }
+  .admin-main-heading {
+    font-size: 1.45rem;
+  }
+  .admin-top-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .toolbar-actions-cluster {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .admin-nav-tabs {
+    overflow-x: auto;
+    width: 100%;
+    padding-bottom: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .admin-nav-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .admin-tab-btn {
+    white-space: nowrap;
+    padding: 0.55rem 0.85rem;
+    font-size: 0.74rem;
+  }
+  .catalog-top-actions {
+    width: 100%;
+  }
+  .category-toggle-btn,
+  .add-prod-btn {
+    flex: 1;
+    justify-content: center;
+  }
+  .cat-inline-form {
+    flex-direction: column;
+  }
+  .cat-name-input {
+    min-width: 100%;
+  }
+  .cat-submit-btn {
+    width: 100%;
+    justify-content: center;
   }
 }
 </style>

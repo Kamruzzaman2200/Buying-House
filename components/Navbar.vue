@@ -326,6 +326,7 @@ onUnmounted(() => {
 
 .mobile-dropdown-card {
   pointer-events: auto;
+  width: calc(100% - 1.5rem);
   max-width: 460px;
   margin: 0.6rem auto 0;
   padding: 1.25rem;
@@ -397,5 +398,20 @@ onUnmounted(() => {
 @media (max-width: 520px) {
   .brand-tag { display: none; }
   .quote-cta-pill { padding: 0.42rem 0.85rem; font-size: 0.74rem; }
+}
+
+@media (max-width: 380px) {
+  .navbar-capsule {
+    padding: 0.32rem 0.45rem 0.32rem 0.65rem;
+    gap: 0.45rem;
+  }
+  .quote-cta-pill {
+    padding: 0.38rem 0.65rem;
+    font-size: 0.7rem;
+  }
+  .brand-monogram {
+    width: 28px;
+    height: 28px;
+  }
 }
 </style>

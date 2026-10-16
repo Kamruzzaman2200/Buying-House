@@ -432,4 +432,22 @@ const fabricTiers = [
     padding: 2.25rem 1.75rem;
   }
 }
+
+@media (max-width: 640px) {
+  .calculator-inputs-col,
+  .calculator-output-col {
+    padding: 1.5rem 1.15rem;
+    gap: 1.5rem;
+  }
+  .estimator-calculator-box {
+    border-radius: 1.25rem;
+  }
+  .option-pill-btn {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.74rem;
+  }
+  .price-metric-display {
+    font-size: 2.2rem;
+  }
+}
 </style>

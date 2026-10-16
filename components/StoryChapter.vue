@@ -57,6 +57,34 @@ import { Globe, Shield, Zap, TrendingUp } from 'lucide-vue-next'
           </p>
         </div>
       </div>
+
+      <!-- Story Telemetry Impact Ribbon -->
+      <div class="story-telemetry-ribbon font-mono">
+        <div class="ribbon-metric">
+          <div class="metric-num font-display">
+            <AnimatedCounter :target="100" suffix="%" :duration="1800" :delay="200" />
+          </div>
+          <div class="metric-desc">MILL-DIRECT TRACEABILITY</div>
+        </div>
+        <div class="ribbon-metric">
+          <div class="metric-num font-display">
+            <AnimatedCounter :target="18" suffix="+" :duration="1600" :delay="300" />
+          </div>
+          <div class="metric-desc">COMPLIANT FACTORY HUBS</div>
+        </div>
+        <div class="ribbon-metric">
+          <div class="metric-num font-display">
+            <AnimatedCounter :target="0" suffix="%" :duration="1200" :delay="400" />
+          </div>
+          <div class="metric-desc">BROKER SURCHARGES</div>
+        </div>
+        <div class="ribbon-metric">
+          <div class="metric-num font-display">
+            <AnimatedCounter :target="100" suffix="%" :duration="2000" :delay="500" />
+          </div>
+          <div class="metric-desc">ON-TIME AUDIT COMMITMENT</div>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -166,6 +194,46 @@ import { Globe, Shield, Zap, TrendingUp } from 'lucide-vue-next'
   margin: 0;
 }
 
+/* Telemetry Impact Ribbon */
+.story-telemetry-ribbon {
+  margin-top: 3.5rem;
+  padding: 1.75rem 2rem;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 1.25rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.ribbon-metric {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0.5rem;
+}
+
+.ribbon-metric:not(:last-child) {
+  border-right: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.metric-num {
+  font-size: clamp(1.6rem, 2.2vw, 2.1rem);
+  font-weight: 900;
+  color: #0a0b0d;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.35rem;
+}
+
+.metric-desc {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #64748b;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 @media (max-width: 980px) {
   .chapter-header-grid {
     grid-template-columns: 1fr;
@@ -174,6 +242,31 @@ import { Globe, Shield, Zap, TrendingUp } from 'lucide-vue-next'
   .story-cards-grid {
     grid-template-columns: 1fr;
     gap: 1.25rem;
+  }
+  .story-telemetry-ribbon {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  .ribbon-metric:nth-child(2) {
+    border-right: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .story-feature-card {
+    padding: 1.75rem 1.25rem;
+    border-radius: 1.15rem;
+  }
+  .story-telemetry-ribbon {
+    grid-template-columns: 1fr 1fr;
+    padding: 1.25rem 1rem;
+    gap: 1rem;
+  }
+  .metric-num {
+    font-size: 1.45rem;
+  }
+  .metric-desc {
+    font-size: 0.6rem;
   }
 }
 </style>

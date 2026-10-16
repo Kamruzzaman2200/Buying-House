@@ -255,4 +255,24 @@ const handleLogin = async () => {
 .db-pill {
   color: #94a3b8;
 }
+
+@media (max-width: 480px) {
+  .admin-login-wrapper {
+    padding: 1.5rem 1rem;
+  }
+  .admin-login-card {
+    padding: 2rem 1.25rem;
+    border-radius: 1.25rem;
+  }
+  .login-header {
+    gap: 0.85rem;
+  }
+  .security-badge-icon {
+    width: 44px;
+    height: 44px;
+  }
+  .auth-title {
+    font-size: 1.2rem;
+  }
+}
 </style>

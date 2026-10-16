@@ -22,14 +22,29 @@ const activeCategory = ref('All')
 const searchQuery = ref('')
 const selectedProduct = ref<Product | null>(null)
 
-const categories = ['All', 'Outerwear', 'Linen & Resort', 'Tailored Shirts', 'Contemporary Overshirts']
+const categories = ref<string[]>([
+  'All',
+  'Outerwear',
+  'Tailored Shirts',
+  'Linen & Resort',
+  'Contemporary Overshirts',
+  'Denim',
+])
 
 onMounted(async () => {
   try {
     isLoading.value = true
-    const res: any = await $fetch('/api/products')
-    if (res && (res.data || res.products)) {
-      products.value = res.data || res.products
+    const [prodsRes, catsRes]: any = await Promise.all([
+      $fetch('/api/products').catch(() => null),
+      $fetch('/api/categories').catch(() => null),
+    ])
+
+    if (prodsRes && (prodsRes.data || prodsRes.products)) {
+      products.value = prodsRes.data || prodsRes.products
+    }
+
+    if (catsRes && catsRes.names && catsRes.names.length > 0) {
+      categories.value = ['All', ...catsRes.names]
     }
   } catch (err) {
     console.error('Failed to stream products from Neon DB:', err)

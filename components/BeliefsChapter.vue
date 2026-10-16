@@ -228,4 +228,14 @@ const COMPARISONS = [
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 640px) {
+  .comparison-card {
+    padding: 1.75rem 1.25rem;
+    border-radius: 1.25rem;
+  }
+  .comparison-title {
+    font-size: 1.35rem;
+  }
+}
 </style>

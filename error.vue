@@ -259,6 +259,63 @@ useHead({
   animation: zeroSpinFloat 8s ease-in-out infinite alternate;
 }
 
+.error-badge {
+  animation: errorFadeDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+.error-hero-meter {
+  animation: errorScaleIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s backwards;
+}
+
+.error-header-block {
+  animation: errorFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards;
+}
+
+.error-diagnostic-dock {
+  animation: errorFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
+}
+
+.error-actions-cluster {
+  animation: errorFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s backwards;
+}
+
+.verified-routes-box {
+  animation: errorFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s backwards;
+}
+
+@keyframes errorFadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes errorFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes errorScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.85) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
 @keyframes zeroSpinFloat {
   0% {
     transform: translateY(0) rotate(0deg);

@@ -181,4 +181,21 @@ const PILLARS = [
   color: #64748b;
   margin: 0;
 }
+
+@media (max-width: 980px) {
+  .pillars-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .pillar-card {
+    padding: 1.75rem 1.25rem;
+  }
+}
 </style>

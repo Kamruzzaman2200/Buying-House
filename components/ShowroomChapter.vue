@@ -110,13 +110,14 @@ const filteredProducts = computed(() => {
 
       <!-- Products Grid -->
       <div v-else class="products-catalog-grid">
-        <div
-          v-for="product in filteredProducts"
-          :key="product.id"
-          class="product-catalog-card"
-          @click="emit('selectProduct', product)"
-        >
-          <div class="product-media-stage">
+        <TransitionGroup name="garment-card">
+          <div
+            v-for="product in filteredProducts"
+            :key="product.id"
+            class="product-catalog-card"
+            @click="emit('selectProduct', product)"
+          >
+            <div class="product-media-stage">
             <img
               :src="product.image_url"
               :alt="product.title"
@@ -167,6 +168,7 @@ const filteredProducts = computed(() => {
             </div>
           </div>
         </div>
+      </TransitionGroup>
       </div>
     </div>
   </section>
@@ -266,6 +268,13 @@ const filteredProducts = computed(() => {
   margin-bottom: 3rem;
   overflow-x: auto;
   padding-bottom: 0.5rem;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.category-pills-bar::-webkit-scrollbar {
+  display: none;
 }
 
 .cat-filter-btn {
@@ -554,5 +563,46 @@ const filteredProducts = computed(() => {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
+  .products-catalog-grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .products-catalog-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .product-media-stage {
+    height: 300px;
+  }
+  .showroom-search-input {
+    font-size: 0.78rem;
+    padding: 0.75rem 0.85rem 0.75rem 2.6rem;
+  }
+  .product-info-panel {
+    padding: 1.25rem;
+  }
+}
+
+/* Staggered Card Animation & Transition */
+.garment-card-enter-active,
+.garment-card-leave-active {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.garment-card-enter-from {
+  opacity: 0;
+  transform: translateY(22px) scale(0.96);
+}
+
+.garment-card-leave-to {
+  opacity: 0;
+  transform: scale(0.92);
+}
+
+.garment-card-move {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 </style>

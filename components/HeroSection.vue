@@ -64,28 +64,28 @@ onMounted(() => {
           <div class="hero-telemetry-dock">
             <div class="telemetry-cell">
               <div class="telemetry-num font-display">
-                <AnimatedCounter :target="14" suffix="+" />
+                <AnimatedCounter :target="14" suffix="+" :duration="1800" :delay="300" />
               </div>
               <div class="telemetry-meta font-mono">VERIFIED ARCHIVES</div>
             </div>
 
             <div class="telemetry-cell">
               <div class="telemetry-num font-display">
-                <AnimatedCounter :target="48" suffix="H" />
+                <AnimatedCounter :target="48" suffix="H" :duration="2000" :delay="400" />
               </div>
               <div class="telemetry-meta font-mono">CLO3D TURNAROUND</div>
             </div>
 
             <div class="telemetry-cell">
               <div class="telemetry-num font-display">
-                <AnimatedCounter :target="99.4" suffix="%" :decimals="1" />
+                <AnimatedCounter :target="99.4" suffix="%" :decimals="1" :duration="2200" :delay="500" />
               </div>
               <div class="telemetry-meta font-mono">AQL 2.5 PASS RATE</div>
             </div>
 
             <div class="telemetry-cell">
               <div class="telemetry-num font-display">
-                ৳<AnimatedCounter :target="3350" suffix="+" />
+                <AnimatedCounter :target="3350" prefix="৳" suffix="+" :duration="2400" :delay="600" />
               </div>
               <div class="telemetry-meta font-mono">BDT VOLUME FOB</div>
             </div>
@@ -345,19 +345,20 @@ onMounted(() => {
 }
 
 .telemetry-num {
-  font-size: 1.55rem;
-  font-weight: 800;
-  color: #0f172a;
-  line-height: 1.1;
-  margin-bottom: 0.25rem;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.75rem, 2.5vw, 2.15rem);
+  font-weight: 900;
+  color: #0a0b0d;
+  line-height: 1.05;
+  margin-bottom: 0.35rem;
+  letter-spacing: -0.03em;
 }
 
 .telemetry-meta {
-  font-size: 0.64rem;
-  font-weight: 700;
-  color: #64748b;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #525c6e;
   letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 /* Right Visual Column */

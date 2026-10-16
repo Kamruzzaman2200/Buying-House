@@ -348,4 +348,27 @@ const handleRequestSpec = () => {
     grid-column: span 1;
   }
 }
+
+@media (max-width: 520px) {
+  .spec-modal-overlay {
+    padding: 0.75rem;
+  }
+  .spec-modal-card {
+    border-radius: 1.15rem;
+  }
+  .spec-details-col {
+    padding: 1.5rem 1rem;
+  }
+  .spec-garment-title {
+    font-size: 1.35rem;
+  }
+  .spec-media-col {
+    min-height: 220px;
+    height: 240px;
+  }
+  .spec-cta-btn {
+    padding: 0.85rem 1.15rem;
+    font-size: 0.74rem;
+  }
+}
 </style>

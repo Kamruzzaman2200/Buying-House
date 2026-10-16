@@ -547,8 +547,30 @@ const resetForm = () => {
 }
 
 @media (max-width: 640px) {
+  .audience-tabs-bar {
+    display: flex;
+    width: 100%;
+    border-radius: 14px;
+    padding: 0.35rem;
+  }
+  .audience-tab-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 0.55rem 0.5rem;
+    font-size: 0.72rem;
+    border-radius: 10px;
+  }
+  .rfq-form-card {
+    padding: 1.5rem 1.15rem;
+    border-radius: 1.25rem;
+  }
+  .audience-info-card {
+    padding: 1.5rem 1.15rem;
+    border-radius: 1.25rem;
+  }
   .form-fields-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
 }
 </style>

@@ -138,6 +138,24 @@ h1, h2, h3, h4, .font-display {
   line-height: 1.15;
 }
 
+/* Ensure ultra-crisp hardware-accelerated text transforms without pixelation or jitter */
+.hero-editorial-h1,
+.hero-editorial-h1 span,
+.chapter-h2,
+.chapter-lead,
+.telemetry-cell,
+.telemetry-num,
+.hero-sublead-text,
+.hero-eyebrow,
+.chapter-header-grid,
+.animated-counter-root {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
 .font-editorial {
   font-family: var(--font-editorial);
   font-style: italic;
@@ -175,6 +193,12 @@ img {
 @media (max-width: 768px) {
   .container {
     padding: 0 1.25rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .container {
+    padding: 0 1rem;
   }
 }
 
