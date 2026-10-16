@@ -373,3 +373,48 @@ body[data-theme='light'] .btn-primary {
   transform: translateY(-16px);
 }
 
+/* ==========================================================================
+   WORD POP ANIMATION SYSTEM
+   Tactile, bouncy, luxury spring micro-interactions for every word
+   ========================================================================== */
+
+.word-pop-container {
+  display: inline;
+}
+
+.word-pop {
+  display: inline-block;
+  transform-origin: 50% 80%;
+  will-change: transform, opacity;
+  transition: color 0.18s ease, text-shadow 0.22s ease;
+  user-select: text;
+  cursor: default;
+}
+
+/* Tactile Pop on Hover */
+.word-pop:hover {
+  color: #0a0b0d;
+  text-shadow: 0 4px 14px rgba(212, 255, 0, 0.45);
+}
+
+/* For dark background cards (.nexus-card, etc.) */
+.nexus-card .word-pop:hover,
+.bg-dark .word-pop:hover,
+.footer-logo .word-pop:hover,
+.stage-tag .word-pop:hover {
+  color: #ffffff;
+  text-shadow: 0 4px 16px rgba(212, 255, 0, 0.65);
+}
+
+/* For gradient text, allow background gradient to pass through */
+.text-gradient .word-pop {
+  background: inherit;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient .word-pop:hover {
+  -webkit-text-fill-color: #0a0b0d;
+  text-shadow: 0 4px 14px rgba(212, 255, 0, 0.5);
+}
+
