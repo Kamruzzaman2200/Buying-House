@@ -65,8 +65,8 @@ import { ArrowLeft, Database, ShieldCheck, ExternalLink } from 'lucide-vue-next'
 <style scoped>
 .admin-app-wrapper {
   min-height: 100vh;
-  background: #0a0b0d;
-  color: #f1f5f9;
+  background: #f8fafc;
+  color: #0f172a;
   display: flex;
   flex-direction: column;
 }
@@ -75,11 +75,12 @@ import { ArrowLeft, Database, ShieldCheck, ExternalLink } from 'lucide-vue-next'
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(10, 11, 13, 0.95);
+  background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   padding: 0.75rem 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
 .admin-header-container {
@@ -106,25 +107,26 @@ import { ArrowLeft, Database, ShieldCheck, ExternalLink } from 'lucide-vue-next'
   font-family: var(--font-mono, monospace);
   font-size: 0.76rem;
   font-weight: 700;
-  color: #94a3b8;
+  color: #475569;
   text-decoration: none;
   padding: 0.4rem 0.8rem;
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   transition: all 0.2s ease;
 }
 
 .admin-back-btn:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
+  color: #0f172a;
+  background: #f1f5f9;
+  border-color: rgba(0, 0, 0, 0.18);
 }
 
 .admin-header-divider {
   width: 1px;
   height: 22px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .admin-brand-badge {
@@ -134,7 +136,7 @@ import { ArrowLeft, Database, ShieldCheck, ExternalLink } from 'lucide-vue-next'
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.08em;
-  color: #ffffff;
+  color: #0f172a;
 }
 
 .admin-brand-icon {
@@ -144,6 +146,7 @@ import { ArrowLeft, Database, ShieldCheck, ExternalLink } from 'lucide-vue-next'
   padding: 0.15rem 0.45rem;
   border-radius: 4px;
   font-size: 0.75rem;
+  border: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 .admin-meta-cluster {
@@ -157,16 +160,17 @@ import { ArrowLeft, Database, ShieldCheck, ExternalLink } from 'lucide-vue-next'
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  color: #cbd5e1;
-  background: rgba(255, 255, 255, 0.04);
+  color: #334155;
+  background: #ffffff;
   padding: 0.35rem 0.75rem;
   border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
 .live-db-dot {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: #10b981;
   box-shadow: 0 0 8px #10b981;
@@ -176,30 +180,32 @@ import { ArrowLeft, Database, ShieldCheck, ExternalLink } from 'lucide-vue-next'
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  color: #d4ff00;
-  background: rgba(212, 255, 0, 0.1);
-  padding: 0.35rem 0.75rem;
+  color: #059669;
+  background: #ecfdf5;
+  padding: 0.35rem 0.7rem;
   border-radius: 9999px;
-  border: 1px solid rgba(212, 255, 0, 0.2);
+  border: 1px solid #a7f3d0;
   font-weight: 700;
 }
 
 .admin-preview-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  color: #94a3b8;
+  gap: 0.35rem;
+  color: #475569;
   text-decoration: none;
+  background: #ffffff;
   padding: 0.35rem 0.75rem;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  font-weight: 700;
   transition: all 0.2s ease;
 }
 
 .admin-preview-link:hover {
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.2);
+  color: #0f172a;
+  background: #f8fafc;
+  border-color: rgba(0, 0, 0, 0.16);
 }
 
 .admin-main-stage {
@@ -207,10 +213,10 @@ import { ArrowLeft, Database, ShieldCheck, ExternalLink } from 'lucide-vue-next'
 }
 
 .admin-app-footer {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 1.5rem 0;
-  background: #060708;
-  font-size: 0.72rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+  padding: 1.25rem 0;
+  font-size: 0.7rem;
   color: #64748b;
 }
 
@@ -223,5 +229,13 @@ import { ArrowLeft, Database, ShieldCheck, ExternalLink } from 'lucide-vue-next'
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .admin-header-container,
+  .admin-footer-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 </style>

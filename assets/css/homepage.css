@@ -2277,3 +2277,81 @@
             font-size: 0.68rem;
           }
         }
+
+        /* =========================================================================
+           GLOBAL LUXURY MOTION & ANIMATION SYSTEM
+           ========================================================================= */
+
+        /* Smooth Hardware Accelerated Transitions */
+        .showroom-card,
+        .pathway-card,
+        .pillar-card,
+        .workflow-card,
+        .compliance-card,
+        .b2b-card {
+          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                      box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                      border-color 0.3s ease;
+          will-change: transform, box-shadow;
+        }
+
+        .showroom-card:hover,
+        .pathway-card:hover,
+        .pillar-card:hover,
+        .compliance-card:hover {
+          transform: translateY(-6px) scale(1.008);
+          box-shadow: 0 20px 48px -10px rgba(0, 0, 0, 0.09), 0 0 0 1px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Headline & Text Micro-Animations */
+        .section-headline {
+          position: relative;
+          transition: letter-spacing 0.3s ease;
+        }
+
+        .headline-accent,
+        .hero-volt-highlight {
+          transition: transform 0.3s ease;
+        }
+
+        .headline-accent:hover,
+        .hero-volt-highlight:hover {
+          transform: scale(1.02);
+        }
+
+        /* Floating Pill Badges */
+        .page-chapter,
+        .hero-header-badge {
+          animation: floatSlow 3.8s ease-in-out infinite;
+        }
+
+        /* Interactive Buttons Magnetic Lift */
+        .quote-cta-pill,
+        .hero-btn-primary,
+        .hero-btn-secondary,
+        .submit-btn,
+        .btn-action {
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .quote-cta-pill:hover,
+        .hero-btn-primary:hover,
+        .submit-btn:hover {
+          transform: translateY(-2px) scale(1.02);
+          box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+        }
+
+        .cta-arrow-icon {
+          transition: transform 0.25s ease;
+        }
+
+        .quote-cta-pill:hover .cta-arrow-icon,
+        .hero-btn-primary:hover .btn-icon {
+          transform: translate(2px, -2px);
+        }
+
+        /* Glowing Pulse for Badges and Indicators */
+        .live-dot,
+        .live-beacon {
+          animation: badgeLivePulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+        }

@@ -497,7 +497,7 @@ const handleDeleteInquiry = async (id: number, name: string) => {
   font-family: var(--font-display, sans-serif);
   font-size: 1.85rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #0f172a;
   margin: 0 0 0.4rem 0;
 }
 
@@ -506,7 +506,7 @@ const handleDeleteInquiry = async (id: number, name: string) => {
   align-items: center;
   gap: 0.5rem;
   font-size: 0.72rem;
-  color: #94a3b8;
+  color: #64748b;
 }
 
 .live-dot {
@@ -528,18 +528,21 @@ const handleDeleteInquiry = async (id: number, name: string) => {
   align-items: center;
   gap: 0.45rem;
   padding: 0.5rem 0.95rem;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #f1f5f9;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #334155;
   border-radius: 8px;
   font-size: 0.76rem;
   font-weight: 700;
   cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   transition: all 0.2s ease;
 }
 
 .tool-btn:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: #f1f5f9;
+  color: #0f172a;
+  border-color: rgba(0, 0, 0, 0.18);
 }
 
 .logout-btn {
@@ -547,9 +550,9 @@ const handleDeleteInquiry = async (id: number, name: string) => {
   align-items: center;
   gap: 0.45rem;
   padding: 0.5rem 0.95rem;
-  background: rgba(239, 68, 68, 0.15);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  color: #fca5a5;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
   border-radius: 8px;
   font-size: 0.76rem;
   font-weight: 700;
@@ -558,17 +561,17 @@ const handleDeleteInquiry = async (id: number, name: string) => {
 }
 
 .logout-btn:hover {
-  background: rgba(239, 68, 68, 0.25);
-  color: #ffffff;
+  background: #fee2e2;
+  color: #b91c1c;
 }
 
 .admin-feedback-banner {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(16, 185, 129, 0.15);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  color: #34d399;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #059669;
   padding: 0.75rem 1.25rem;
   border-radius: 8px;
   margin-bottom: 1.5rem;
@@ -584,10 +587,11 @@ const handleDeleteInquiry = async (id: number, name: string) => {
 }
 
 .admin-stat-card {
-  background: #121418;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 1rem;
   padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
 .stat-top {
@@ -599,18 +603,19 @@ const handleDeleteInquiry = async (id: number, name: string) => {
 
 .stat-label {
   font-size: 0.68rem;
-  color: #94a3b8;
+  color: #64748b;
   letter-spacing: 0.08em;
+  font-weight: 700;
 }
 
 .stat-icon {
-  color: #d4ff00;
+  color: #0284c7;
 }
 
 .stat-val {
   font-size: 2.2rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #0f172a;
   line-height: 1;
   margin-bottom: 0.35rem;
 }
@@ -623,7 +628,7 @@ const handleDeleteInquiry = async (id: number, name: string) => {
 .admin-nav-tabs {
   display: flex;
   gap: 0.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   padding-bottom: 0.75rem;
   margin-bottom: 2rem;
   overflow-x: auto;
@@ -637,7 +642,7 @@ const handleDeleteInquiry = async (id: number, name: string) => {
   border-radius: 8px;
   border: 1px solid transparent;
   background: transparent;
-  color: #94a3b8;
+  color: #64748b;
   font-size: 0.78rem;
   font-weight: 700;
   cursor: pointer;
@@ -646,14 +651,14 @@ const handleDeleteInquiry = async (id: number, name: string) => {
 }
 
 .admin-tab-btn:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.05);
+  color: #0f172a;
+  background: #f1f5f9;
 }
 
 .admin-tab-btn.is-active {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.15);
-  color: #d4ff00;
+  background: #0f172a;
+  border-color: #0f172a;
+  color: #ffffff;
 }
 
 .admin-content-pane {
@@ -674,13 +679,13 @@ const handleDeleteInquiry = async (id: number, name: string) => {
   font-family: var(--font-display, sans-serif);
   font-size: 1.4rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #0f172a;
   margin: 0 0 0.35rem 0;
 }
 
 .pane-subtitle {
   font-size: 0.85rem;
-  color: #94a3b8;
+  color: #64748b;
   margin: 0;
 }
 
@@ -689,8 +694,8 @@ const handleDeleteInquiry = async (id: number, name: string) => {
   align-items: center;
   gap: 0.45rem;
   padding: 0.65rem 1.25rem;
-  background: #d4ff00;
-  color: #0a0b0d;
+  background: #0f172a;
+  color: #ffffff;
   font-weight: 800;
   font-size: 0.76rem;
   border: none;
@@ -700,20 +705,22 @@ const handleDeleteInquiry = async (id: number, name: string) => {
 }
 
 .add-prod-btn:hover {
-  background: #bce600;
+  background: #1e293b;
 }
 
 .add-product-form-card {
-  background: #14171d;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 1rem;
   padding: 2rem;
   margin-bottom: 1.5rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
 }
 
 .form-title {
   font-size: 0.88rem;
-  color: #d4ff00;
+  color: #0f172a;
+  font-weight: 800;
   margin: 0 0 1.5rem 0;
 }
 
@@ -737,23 +744,24 @@ const handleDeleteInquiry = async (id: number, name: string) => {
 
 .field-label {
   font-size: 0.65rem;
-  color: #94a3b8;
+  color: #64748b;
   font-weight: 800;
 }
 
 .admin-input {
   width: 100%;
   padding: 0.65rem 0.85rem;
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #f8fafc;
+  border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 6px;
-  color: #ffffff;
+  color: #0f172a;
   font-size: 0.8rem;
   outline: none;
 }
 
 .admin-input:focus {
-  border-color: #d4ff00;
+  background: #ffffff;
+  border-color: #0f172a;
 }
 
 .submit-prod-btn {
@@ -762,8 +770,8 @@ const handleDeleteInquiry = async (id: number, name: string) => {
   justify-content: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
-  background: #d4ff00;
-  color: #0a0b0d;
+  background: #0f172a;
+  color: #ffffff;
   font-weight: 800;
   font-size: 0.78rem;
   border: none;
@@ -773,10 +781,11 @@ const handleDeleteInquiry = async (id: number, name: string) => {
 }
 
 .table-responsive-box {
-  background: #121418;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 1rem;
   overflow-x: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
 .admin-data-table {
@@ -788,21 +797,22 @@ const handleDeleteInquiry = async (id: number, name: string) => {
 
 .admin-data-table th {
   padding: 1rem 1.25rem;
-  background: rgba(0, 0, 0, 0.25);
-  color: #94a3b8;
+  background: #f8fafc;
+  color: #475569;
   font-weight: 800;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   white-space: nowrap;
 }
 
 .admin-data-table td {
   padding: 1rem 1.25rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   vertical-align: middle;
+  color: #334155;
 }
 
 .admin-data-table tr:hover {
-  background: rgba(255, 255, 255, 0.02);
+  background: #f8fafc;
 }
 
 .id-cell {
@@ -812,19 +822,19 @@ const handleDeleteInquiry = async (id: number, name: string) => {
 
 .client-name {
   font-weight: 800;
-  color: #ffffff;
+  color: #0f172a;
 }
 
 .client-company {
   font-size: 0.7rem;
-  color: #94a3b8;
+  color: #64748b;
 }
 
 .email-link {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  color: #38bdf8;
+  color: #0284c7;
   text-decoration: none;
 }
 
@@ -836,9 +846,10 @@ const handleDeleteInquiry = async (id: number, name: string) => {
   display: inline-block;
   padding: 0.25rem 0.55rem;
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.06);
-  color: #e2e8f0;
+  background: #f1f5f9;
+  color: #334155;
   font-size: 0.7rem;
+  font-weight: 600;
 }
 
 .date-cell {
@@ -851,7 +862,7 @@ const handleDeleteInquiry = async (id: number, name: string) => {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: #94a3b8;
+  color: #64748b;
 }
 
 .action-delete-btn {
@@ -860,9 +871,9 @@ const handleDeleteInquiry = async (id: number, name: string) => {
   gap: 0.35rem;
   padding: 0.4rem 0.75rem;
   border-radius: 6px;
-  background: rgba(239, 68, 68, 0.15);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  color: #fca5a5;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
   font-size: 0.7rem;
   font-weight: 700;
   cursor: pointer;
@@ -870,8 +881,8 @@ const handleDeleteInquiry = async (id: number, name: string) => {
 }
 
 .action-delete-btn:hover {
-  background: rgba(239, 68, 68, 0.3);
-  color: #ffffff;
+  background: #fee2e2;
+  color: #b91c1c;
 }
 
 .table-thumb-img {
@@ -879,12 +890,12 @@ const handleDeleteInquiry = async (id: number, name: string) => {
   height: 48px;
   object-fit: cover;
   border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .prod-table-title {
   font-weight: 800;
-  color: #ffffff;
+  color: #0f172a;
 }
 
 .prod-table-vibe {
@@ -896,8 +907,8 @@ const handleDeleteInquiry = async (id: number, name: string) => {
   display: inline-block;
   padding: 0.25rem 0.6rem;
   border-radius: 9999px;
-  background: rgba(16, 185, 129, 0.12);
-  color: #34d399;
+  background: #ecfdf5;
+  color: #059669;
   font-size: 0.68rem;
   font-weight: 700;
 }
@@ -907,12 +918,12 @@ const handleDeleteInquiry = async (id: number, name: string) => {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: #cbd5e1;
+  color: #475569;
 }
 
 .price-cell {
   font-weight: 800;
-  color: #d4ff00;
+  color: #0f172a;
   white-space: nowrap;
 }
 
@@ -921,20 +932,21 @@ const handleDeleteInquiry = async (id: number, name: string) => {
 }
 
 .telemetry-details-card {
-  background: #121418;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 1rem;
   padding: 2rem;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
   font-size: 0.82rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
 .diag-row {
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   padding-bottom: 1rem;
 }
 
@@ -944,16 +956,16 @@ const handleDeleteInquiry = async (id: number, name: string) => {
 }
 
 .diag-label {
-  color: #94a3b8;
+  color: #64748b;
 }
 
 .diag-val {
-  color: #ffffff;
+  color: #0f172a;
   font-weight: 700;
 }
 
 .text-volt {
-  color: #d4ff00;
+  color: #65a30d;
 }
 
 .text-green {
@@ -961,8 +973,8 @@ const handleDeleteInquiry = async (id: number, name: string) => {
 }
 
 .empty-data-box {
-  background: #121418;
-  border: 1px dashed rgba(255, 255, 255, 0.12);
+  background: #ffffff;
+  border: 1px dashed rgba(0, 0, 0, 0.12);
   border-radius: 1rem;
   padding: 4rem 1.5rem;
   text-align: center;
@@ -974,7 +986,7 @@ const handleDeleteInquiry = async (id: number, name: string) => {
 }
 
 .empty-icon {
-  color: #475569;
+  color: #94a3b8;
 }
 
 .spin-anim {

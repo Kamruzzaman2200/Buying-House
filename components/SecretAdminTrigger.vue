@@ -127,12 +127,12 @@ const handleAuthenticate = async () => {
   position: relative;
   width: 100%;
   max-width: 440px;
-  background: #121418;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 1.25rem;
   padding: 2rem;
-  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.7), 0 0 40px rgba(212, 255, 0, 0.08);
-  color: #f1f5f9;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  color: #0f172a;
 }
 
 .modal-close-btn {
@@ -142,9 +142,9 @@ const handleAuthenticate = async () => {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #94a3b8;
+  background: #f1f5f9;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #64748b;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -153,8 +153,8 @@ const handleAuthenticate = async () => {
 }
 
 .modal-close-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: #ffffff;
+  background: #e2e8f0;
+  color: #0f172a;
 }
 
 .modal-header {
@@ -168,12 +168,12 @@ const handleAuthenticate = async () => {
   width: 46px;
   height: 46px;
   border-radius: 12px;
-  background: rgba(212, 255, 0, 0.12);
-  border: 1px solid rgba(212, 255, 0, 0.28);
+  background: #0a0b0d;
   color: #d4ff00;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
 .modal-title-stack {
@@ -185,20 +185,20 @@ const handleAuthenticate = async () => {
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.12em;
-  color: #d4ff00;
+  color: #059669;
 }
 
 .modal-title {
   font-family: var(--font-display, sans-serif);
   font-size: 1.25rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #0f172a;
   margin: 0;
 }
 
 .modal-desc {
   font-size: 0.85rem;
-  color: #94a3b8;
+  color: #64748b;
   line-height: 1.5;
   margin-bottom: 1.5rem;
 }
@@ -218,32 +218,33 @@ const handleAuthenticate = async () => {
 .input-icon {
   position: absolute;
   left: 1rem;
-  color: #64748b;
+  color: #94a3b8;
   pointer-events: none;
 }
 
 .security-input {
   width: 100%;
   padding: 0.85rem 1rem 0.85rem 2.85rem;
-  background: rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #f8fafc;
+  border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 10px;
-  color: #ffffff;
+  color: #0f172a;
   font-size: 0.88rem;
   outline: none;
   transition: all 0.2s ease;
 }
 
 .security-input:focus {
-  border-color: #d4ff00;
-  box-shadow: 0 0 0 2px rgba(212, 255, 0, 0.2);
+  background: #ffffff;
+  border-color: #0a0b0d;
+  box-shadow: 0 0 0 3px rgba(10, 11, 13, 0.08);
 }
 
 .error-msg {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  color: #ef4444;
+  color: #dc2626;
   font-size: 0.74rem;
   margin: 0;
 }
@@ -254,19 +255,20 @@ const handleAuthenticate = async () => {
   justify-content: center;
   gap: 0.5rem;
   padding: 0.85rem 1.25rem;
-  background: #d4ff00;
-  color: #0a0b0d;
+  background: #0a0b0d;
+  color: #ffffff;
   font-weight: 800;
   font-size: 0.82rem;
   letter-spacing: 0.04em;
   border: none;
   border-radius: 10px;
   cursor: pointer;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
   transition: all 0.2s ease;
 }
 
 .submit-auth-btn:hover {
-  background: #bce600;
+  background: #1e293b;
   transform: translateY(-1px);
 }
 
@@ -276,8 +278,8 @@ const handleAuthenticate = async () => {
   align-items: center;
   justify-content: space-between;
   font-size: 0.65rem;
-  color: #64748b;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
   padding-top: 1rem;
 }
 
