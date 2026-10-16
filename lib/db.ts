@@ -7,12 +7,12 @@
 
 import { neon } from '@neondatabase/serverless'
 
-const connectionString =
-  process.env.DATABASE_URL ||
-  'postgresql://neondb_owner:npg_5ZEP4IpkOHqw@ep-lucky-voice-b477yecu-pooler.c-6.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
+const connectionString = process.env.DATABASE_URL
 
 if (!connectionString) {
-  console.warn('⚠️ DATABASE_URL is not set. Using fallback Neon connection string.')
+  throw new Error(
+    'DATABASE_URL is required. Set it in your environment before starting the app.'
+  )
 }
 
 // Create a tagged template SQL executor with serverless pooling
