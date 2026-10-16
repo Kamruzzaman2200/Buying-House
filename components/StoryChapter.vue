@@ -62,25 +62,25 @@ import { Globe, Shield, Zap, TrendingUp } from 'lucide-vue-next'
       <div class="story-telemetry-ribbon font-mono">
         <div class="ribbon-metric">
           <div class="metric-num font-display">
-            <AnimatedCounter :target="100" suffix="%" :duration="1800" :delay="200" />
+            <AnimatedCounter :target="100" suffix="%" :duration="1600" :delay="150" />
           </div>
           <div class="metric-desc">MILL-DIRECT TRACEABILITY</div>
         </div>
         <div class="ribbon-metric">
           <div class="metric-num font-display">
-            <AnimatedCounter :target="18" suffix="+" :duration="1600" :delay="300" />
+            <AnimatedCounter :target="18" suffix="+" :duration="1600" :delay="250" />
           </div>
           <div class="metric-desc">COMPLIANT FACTORY HUBS</div>
         </div>
         <div class="ribbon-metric">
           <div class="metric-num font-display">
-            <AnimatedCounter :target="0" suffix="%" :duration="1200" :delay="400" />
+            <AnimatedCounter :from="25" :target="0" suffix="%" :duration="1400" :delay="350" />
           </div>
           <div class="metric-desc">BROKER SURCHARGES</div>
         </div>
         <div class="ribbon-metric">
           <div class="metric-num font-display">
-            <AnimatedCounter :target="100" suffix="%" :duration="2000" :delay="500" />
+            <AnimatedCounter :target="100" suffix="%" :duration="1800" :delay="450" />
           </div>
           <div class="metric-desc">ON-TIME AUDIT COMMITMENT</div>
         </div>

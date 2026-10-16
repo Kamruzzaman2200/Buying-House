@@ -4,6 +4,7 @@ import { ref, onMounted, onUnmounted, watch } from 'vue'
 const props = withDefaults(
   defineProps<{
     target: number
+    from?: number
     suffix?: string
     prefix?: string
     duration?: number
@@ -11,11 +12,12 @@ const props = withDefaults(
     delay?: number
   }>(),
   {
+    from: 0,
     suffix: '',
     prefix: '',
     duration: 1800,
     decimals: 0,
-    delay: 350,
+    delay: 200,
   }
 )
 
@@ -32,8 +34,8 @@ const formatNumber = (val: number): string => {
   return Math.round(val).toLocaleString('en-US')
 }
 
-// Initial display string
-const displayString = ref(formatNumber(0))
+// Initial display string starts from fromVal (or 0)
+const displayString = ref(formatNumber(props.from ?? 0))
 
 const startCount = (immediate = false) => {
   if (animFrameId) cancelAnimationFrame(animFrameId)
@@ -42,10 +44,9 @@ const startCount = (immediate = false) => {
   const startTime = performance.now() + delayMs
   const duration = immediate ? Math.min(props.duration, 1400) : props.duration
   const target = props.target
+  const fromVal = props.from ?? 0
 
-  if (immediate) {
-    displayString.value = formatNumber(0)
-  }
+  displayString.value = formatNumber(fromVal)
 
   const step = (now: number) => {
     if (now < startTime) {
@@ -56,9 +57,9 @@ const startCount = (immediate = false) => {
     const elapsed = now - startTime
     const progress = Math.min(elapsed / duration, 1)
 
-    // Quartic-out easing: rapid initial acceleration with ultra-smooth gliding landing
-    const ease = 1 - Math.pow(1 - progress, 4)
-    const current = ease * target
+    // Exponential ease-out: energetic launch with smooth precision glide into final value
+    const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress)
+    const current = fromVal + ease * (target - fromVal)
 
     displayString.value = formatNumber(current)
 
@@ -84,8 +85,25 @@ let observer: IntersectionObserver | null = null
 onMounted(() => {
   if (typeof window === 'undefined') return
 
-  displayString.value = formatNumber(0)
+  // Check if element is already inside viewport on mount
+  const checkAndStartIfInView = () => {
+    if (hasAnimated || !counterEl.value) return false
+    const rect = counterEl.value.getBoundingClientRect()
+    const inView = rect.top < window.innerHeight + 50 && rect.bottom > -50
+    if (inView) {
+      hasAnimated = true
+      startCount()
+      return true
+    }
+    return false
+  }
 
+  // 1. Immediate in-view check after initial paint
+  setTimeout(() => {
+    checkAndStartIfInView()
+  }, 40)
+
+  // 2. IntersectionObserver with 0 threshold for any scroll entry
   if ('IntersectionObserver' in window && counterEl.value) {
     observer = new IntersectionObserver(
       (entries) => {
@@ -96,12 +114,18 @@ onMounted(() => {
           }
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0, rootMargin: '40px' }
     )
     observer.observe(counterEl.value)
-  } else {
-    setTimeout(startCount, props.delay || 350)
   }
+
+  // 3. Fallback safety timer: guarantees counter will NEVER sit stuck at 0
+  setTimeout(() => {
+    if (!hasAnimated) {
+      hasAnimated = true
+      startCount()
+    }
+  }, (props.delay || 0) + 350)
 })
 
 onUnmounted(() => {
@@ -139,12 +163,12 @@ watch(
   align-items: baseline;
   white-space: nowrap;
   letter-spacing: -0.03em;
-  cursor: default;
+  cursor: pointer;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .animated-counter-root:hover {
-  transform: translateY(-1px) scale(1.03);
+  transform: translateY(-2px) scale(1.05);
 }
 
 .counter-numeric {

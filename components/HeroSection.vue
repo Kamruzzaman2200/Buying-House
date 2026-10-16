@@ -64,28 +64,28 @@ onMounted(() => {
           <div class="hero-telemetry-dock">
             <div class="telemetry-cell">
               <div class="telemetry-num font-display">
-                <AnimatedCounter :target="14" suffix="+" :duration="1800" :delay="300" />
+                <AnimatedCounter :target="14" suffix="+" :duration="1600" :delay="120" />
               </div>
               <div class="telemetry-meta font-mono">VERIFIED ARCHIVES</div>
             </div>
 
             <div class="telemetry-cell">
               <div class="telemetry-num font-display">
-                <AnimatedCounter :target="48" suffix="H" :duration="2000" :delay="400" />
+                <AnimatedCounter :target="48" suffix="H" :duration="1800" :delay="220" />
               </div>
               <div class="telemetry-meta font-mono">CLO3D TURNAROUND</div>
             </div>
 
             <div class="telemetry-cell">
               <div class="telemetry-num font-display">
-                <AnimatedCounter :target="99.4" suffix="%" :decimals="1" :duration="2200" :delay="500" />
+                <AnimatedCounter :target="99.4" suffix="%" :decimals="1" :duration="2000" :delay="320" />
               </div>
               <div class="telemetry-meta font-mono">AQL 2.5 PASS RATE</div>
             </div>
 
             <div class="telemetry-cell">
               <div class="telemetry-num font-display">
-                <AnimatedCounter :target="3350" prefix="৳" suffix="+" :duration="2400" :delay="600" />
+                <AnimatedCounter :target="3350" prefix="৳" suffix="+" :duration="2200" :delay="420" />
               </div>
               <div class="telemetry-meta font-mono">BDT VOLUME FOB</div>
             </div>
