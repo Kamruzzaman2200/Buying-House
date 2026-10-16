@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import SitePreloader from '~/components/SitePreloader.vue'
 import SecretAdminTrigger from '~/components/SecretAdminTrigger.vue'
 import Navbar from '~/components/Navbar.vue'
 import GlobalFooter from '~/components/GlobalFooter.vue'
@@ -6,6 +7,9 @@ import GlobalFooter from '~/components/GlobalFooter.vue'
 
 <template>
   <div class="site-app-shell">
+    <!-- Animated High-Fashion Preloader Entrance Curtain -->
+    <SitePreloader />
+
     <!-- Stealth Shift + A Admin Gate -->
     <SecretAdminTrigger />
 

@@ -5,8 +5,11 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 3,
   },
-  srcDir: '.',
   app: {
+    pageTransition: {
+      name: 'page',
+      mode: 'out-in',
+    },
     head: {
       title: 'NEXUS SOURCING | Autonomous Apparel Buying House & Global Production',
       meta: [
